@@ -13,7 +13,7 @@ class Authorization:
         self.logger = None
 
     # This method generates and return a encrypted signature based on the Authentication type
-    def get_token(self, mconfig, date_time, logger = None):        
+    def get_token(self, mconfig, date_time, logger = None):
         authentication_type = mconfig.authentication_type
         self.validate_request_type_method(mconfig)
         # Initializing the logger object
@@ -68,7 +68,7 @@ class Authorization:
             elif authentication_type.upper() == GlobalLabelParameters.OAUTH.upper():
                 token = OAuthToken()
                 token.oauth_token(mconfig)
-                o_auth_token = token.get_token() 
+                o_auth_token = token.get_token()
                 # self.logger.info("Authorization Bearer:     " + o_auth_token.encode("utf-8").decode("utf-8"))
                 return o_auth_token
             else:

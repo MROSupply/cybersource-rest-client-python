@@ -32,7 +32,7 @@ class GetSignatureParameter:
 
         signature_list = ([])
         # This method adds the host header
-		
+
 
         signature_list.append(GlobalLabelParameters.HOST.lower())
         signature_list.append(": ")
@@ -91,7 +91,7 @@ class GetSignatureParameter:
 
 
         sig_value_string = str(sig_value)
-        sig_value_utf = bytes(sig_value_string,encoding='utf-8')
+        sig_value_utf = sig_value_string.encode('utf-8')
 
         # Signature string generated from above parameters is signed with secret key hashed with SHA-256
         # Secret key is base 64 decoded before signing
