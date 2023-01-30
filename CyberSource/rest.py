@@ -204,7 +204,7 @@ class RESTClientObject(object):
                 # Pass a `string` parameter directly in the body to support
                 # other content types than Json when `body` argument is provided
                 # in serialized form
-                elif isinstance(body, str):
+                elif isinstance(body, (str, unicode)):
                     request_body = body
                     r = self.pool_manager.request(method, url,
                                                   body=request_body,

@@ -59,6 +59,7 @@ class ApiClient(object):
         'long': int if PY3 else long,
         'float': float,
         'str': str,
+        'unicode': unicode,
         'bool': bool,
         'date': date,
         'datetime': datetime,
@@ -129,7 +130,7 @@ class ApiClient(object):
             elif type(value) == list and deep:
                 converted_list_items = []
                 for item in value:
-                    if type(item) == str:
+                    if type(item) in (str, unicode):
                         converted_list_items.append(item)
                     else:
                         converted_list_items.append(self.replace_underscore(item, deep))
@@ -407,7 +408,7 @@ class ApiClient(object):
         if data is None:
             return None
 
-        if type(klass) == str:
+        if type(klass) in (str, unicode):
             if klass.startswith('list['):
                 sub_kls = re.match('list\[(.*)\]', klass).group(1)
                 return [self.__deserialize(sub_data, sub_kls)
@@ -586,7 +587,7 @@ class ApiClient(object):
         new_params = []
         if collection_formats is None:
             collection_formats = {}
-        if isinstance(params, str):
+        if isinstance(params, (str, unicode)):
             params = json.loads(params)
         for k, v in iteritems(params) if isinstance(params, dict) else params:
             if k in collection_formats:
